@@ -1,7 +1,6 @@
-import { TouchableHighlight, ImageBackground, Text } from "react-native";
+import { TouchableOpacity, ImageBackground, Text } from "react-native";
 
 import { styles } from "./styles";
-import { COLORS } from "../../../themes";
 
 const CategoryItem = ({
   id,
@@ -11,10 +10,9 @@ const CategoryItem = ({
   onSelect,
 }) => {
   return (
-    <TouchableHighlight
-      underlayColor={COLORS.primary}
+    <TouchableOpacity
       style={[styles.container, { backgroundColor }]}
-      onPress={() => onSelect(id)}
+      onPress={() => onSelect(id, name)}
     >
       <ImageBackground
         source={{ uri: backgroundImage }}
@@ -23,7 +21,7 @@ const CategoryItem = ({
       >
         <Text style={styles.title}>{name}</Text>
       </ImageBackground>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

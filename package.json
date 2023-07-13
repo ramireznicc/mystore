@@ -17,7 +17,6 @@
     "@babel/core": "^7.20.0",
     "eslint": "^8.44.0",
     "eslint-config-universe": "^11.2.0",
-    "pretier": "^0.0.1",
     "prettier": "^2.8.8"
   },
   "eslintConfig": {
