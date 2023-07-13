@@ -7,6 +7,7 @@ const Input = ({
   onHandleFocus,
   onHandleBlur,
   onHandleChangeText,
+  onHandleDelete,
   ...props
 }) => {
   return (

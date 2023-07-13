@@ -7,11 +7,20 @@ import { COLORS } from "./themes";
 
 export default function App() {
   const [isCategorySelected, setIsCategorySelected] = useState(false);
-  const [categoryName, setCategoryName] = useState("");
-  const headerTitle = isCategorySelected ? categoryName : "Categories";
-  const onHandleNavigate = (id, name) => {
+  const [selectedCategory, setSelectedCategory] = useState({
+    name: null,
+    id: null,
+  });
+  const headerTitle = isCategorySelected ? selectedCategory.name : "Categories";
+
+  const onCategorySelected = (categoryId, categoryName) => {
+    setSelectedCategory({ name: categoryName, id: categoryId });
     setIsCategorySelected(!isCategorySelected);
-    setCategoryName(name);
+  };
+
+  const onHandleNavigate = () => {
+    setIsCategorySelected(!isCategorySelected);
+    setSelectedCategory(null);
   };
 
   return (
@@ -19,9 +28,12 @@ export default function App() {
       <View style={styles.container}>
         <Header title={headerTitle} />
         {isCategorySelected ? (
-          <Products onHandleGoBack={onHandleNavigate} />
+          <Products
+            onHandleGoBack={onHandleNavigate}
+            categoryId={selectedCategory.id}
+          />
         ) : (
-          <Categories onSelect={onHandleNavigate} />
+          <Categories onSelect={onCategorySelected} />
         )}
       </View>
     </SafeAreaView>

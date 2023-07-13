@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 22,
     paddingHorizontal: 12,
     color: COLORS.black,
     fontSize: 14,
-    height: 35,
+    height: 40,
   },
 });
