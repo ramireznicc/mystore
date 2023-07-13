@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   goBackText: {
     fontSize: 16,
+    fontWeight: "bold",
   },
   inputSearchContainer: {
     flexDirection: "row",
@@ -19,5 +20,18 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 16,
     marginVertical: 12,
+  },
+  productsContainer: {
+    flex: 1,
+    marginHorizontal: 12,
+    gap: 12,
+  },
+  noProducts: {
+    flex: 1,
+    alignItems: "center",
+  },
+  noProductsText: {
+    fontSize: 16,
+    fontWeight: 500,
   },
 });

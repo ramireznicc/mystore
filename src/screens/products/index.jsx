@@ -9,6 +9,7 @@ import { COLORS } from "../../themes";
 
 const Products = ({ onHandleGoBack, categoryId }) => {
   const [search, setSearch] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [deleteIconState, setDeleteIconState] = useState({
     color: COLORS.disabled,
     disabled: true,
@@ -24,20 +25,31 @@ const Products = ({ onHandleGoBack, categoryId }) => {
     setBorderColor(COLORS.disabled);
   };
 
-  const onHandleDelete = () => {
+  const clearSearch = () => {
     setSearch("");
   };
 
-  const productsFiltered = PRODUCTS.filter(
+  const filteredProductsByCategory = PRODUCTS.filter(
     (product) => product.categoryId === categoryId
   );
 
+  const filterBySearch = (query) => {
+    let updatedList = [...filteredProductsByCategory];
+    updatedList = updatedList.filter((item) => {
+      return item.name.toLowerCase().search(query.toLowerCase()) !== -1;
+    });
+
+    setFilteredProducts(updatedList);
+  };
+
   useEffect(() => {
-    if (search.length === 0) {
-      setDeleteIconState({ color: COLORS.disabled, disabled: true });
-    } else {
+    if (search.length !== 0) {
       setDeleteIconState({ color: COLORS.text, disabled: false });
+    } else {
+      setDeleteIconState({ color: COLORS.disabled, disabled: true });
     }
+
+    filterBySearch(search);
   }, [search]);
 
   return (
@@ -56,20 +68,27 @@ const Products = ({ onHandleGoBack, categoryId }) => {
           borderColor={borderColor}
           value={search}
         />
-        <Ionicons name="search" size={24} color={COLORS.text} />
         <Ionicons
           name="backspace"
           size={24}
           color={deleteIconState.color}
           disabled={deleteIconState.disabled}
-          onPress={onHandleDelete}
+          onPress={clearSearch}
         />
       </View>
       <FlatList
-        data={productsFiltered}
+        contentContainerStyle={styles.productsContainer}
+        data={
+          search.length === 0 ? filteredProductsByCategory : filteredProducts
+        }
         renderItem={({ item }) => <Text>{item.name}</Text>}
         keyExtractor={(item) => item.id.toString()}
       />
+      {filteredProducts.length === 0 && search.length > 0 && (
+        <View style={styles.noProducts}>
+          <Text style={styles.noProductsText}>No products found</Text>
+        </View>
+      )}
     </View>
   );
 };
